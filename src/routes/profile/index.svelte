@@ -21,7 +21,10 @@
     }
 </script>
 <script>
+    import { goto } from '$app/navigation';
     import { onMount } from 'svelte'
+    
+
     let name    
     export let email
     let error
@@ -39,8 +42,11 @@
             const res = await fetch('/auth/logout')
             console.log((new Date()).toISOString()+logPrefix+' fetch sent')
 
-            if(res.ok){
+            const status = await res.ok
+
+            if(status){
                 console.log((new Date()).toISOString()+logPrefix+' res.ok')
+                goto('/')
             }else{
                 error = 'An error occured'
             }
@@ -50,6 +56,9 @@
         } 
     }
 </script>
+<svelte:head>
+    <title>PAF - Profile</title>
+</svelte:head>
 <h1>Profile</h1>
 <p> Hi {name}, You're logged in with email {email}</p>
 <button on:click={doLogout}>Logout</button>

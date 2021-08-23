@@ -11,6 +11,13 @@
 
     const logPrefix = "::src/components/register.svelte "
 
+    
+    function redirectToProfile(){
+        console.log((new Date()).toISOString()+logPrefix+' Redirecting to profile')
+        // goto('/profile')        
+        window.location.assign('http://localhost:3000/profile')
+    }
+    
     async function register(){
         error = undefined
         console.log((new Date()).toISOString()+logPrefix+' register()')                                                                         
@@ -28,7 +35,7 @@
             })
 
             if(res.ok){
-                dispatch('success')
+                redirectToProfile()
             }else{
                 error = 'An error occured'
             }

@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from 'svelte'
+    import { goto, prefetch } from '$app/navigation'
     
     const dispatch = createEventDispatcher();
 
@@ -8,6 +9,15 @@
     let error
 
     const logPrefix = "::src/components/login.svelte "
+
+
+    async function redirectToProfile(){
+        console.log((new Date()).toISOString()+logPrefix+' Redirecting to profile')
+        // await goto('/profile')
+        window.location.assign('http://localhost:3000/profile')
+        console.log((new Date()).toISOString()+logPrefix+' Done redirecting')
+        // const response = await goto('/profile')
+    }
 
     async function login(){
         console.log((new Date()).toISOString()+logPrefix+' login()')
@@ -25,7 +35,7 @@
             })
 
             if(res.ok){
-                dispatch('success')
+                redirectToProfile()
             }else{
                 error = 'An error occured'
             }

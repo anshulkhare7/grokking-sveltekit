@@ -9,6 +9,11 @@ const logPrefix = "::src/routes/auth/logout.js "
 export async function get(request){
     console.log((new Date()).toISOString()+logPrefix+' get(request) '+JSON.stringify(request.locals, null, 2))    
 
+    const cookies = cookie.parse(request.headers.cookie || '');
+    const sessionId = cookies[SESSION_COOKIE];
+
+    await db.del(sessionId)
+
     const headers = {
         'Set-Cookie' : cookie.serialize(SESSION_COOKIE, '', {
             httpOnly: true,
