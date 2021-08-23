@@ -1,0 +1,1 @@
+export const SESSION_COOKIE = '__paf_session'
